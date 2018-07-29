@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import Filter from './Filter'
+import GoogleMap from './GoogleMap'
 import './App.css';
 import * as LocationsAPI from './LocationsAPI'
 
 class App extends Component {
   state = {
-    places: [],
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
+    places: []
   };
 
   componentDidMount() {
@@ -18,36 +16,15 @@ class App extends Component {
     })
   }
 
-  onMarkerClick = (props, marker, e) =>
-  this.setState({
-    selectedPlace: props,
-    activeMarker: marker,
-    showingInfoWindow: true
-  });
-
-  onMapClicked = () => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      })
-    }
-  };
-
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Neighborhood Map</h1>
         </header>
-        <div id="selector">
-          <ol>
-          {this.state.places.map(place =>
-            <li>{place.venue.name}</li>
-          )}
-          </ol>
-        </div>
-        <div id="map">
+        <Filter places={this.state.places}/>
+        <GoogleMap places={this.state.places}/>
+        {/* <div id="map">
           <Map google={this.props.google}
             initialCenter={{ lat: 46.770439, lng: 23.591423 }}
             zoom = { 15 }
@@ -67,11 +44,9 @@ class App extends Component {
               </div>
           </InfoWindow>
           </Map>
-        </div>
+        </div> */}
       </div>
     );
   }
 }
-export default GoogleApiWrapper({
-  apiKey: ('AIzaSyB1OLauMwO5CCMQg0gZejZjm0q1lAEQFSo')
-})(App)
+export default App
