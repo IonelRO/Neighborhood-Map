@@ -1,7 +1,7 @@
 const api = 'https://api.foursquare.com';
 const cli_id = 'VRJROPCAFPLE2AGGH02TVCWP5TYRO4UMQKCYSROZGYZER20V';
 const cli_secret = 'C5CQZGWYOVGO0SNA5IXYJVLMA44AMBX4BFSLVAQQLDUMLOGA';
-const limit = '10';
+const limit = '20';
 const location = 'Cluj-Napoca';
 
 const headers = {
