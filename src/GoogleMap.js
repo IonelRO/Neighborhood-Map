@@ -32,17 +32,17 @@ class GoogleMap extends Component {
 							zoom = { 15 }
 							onClick={this.onMapClicked}>
 						{this.props.places.map(place =>
-						<Marker key={place.referralId} onClick = {this.onMarkerClick}
-							name = {place.venue.name}
-							description = {place.venue.location.address}
-							position = {{ lat: place.venue.location.lat, lng: place.venue.location.lng }} />
+							<Marker key={place.referralId} onClick = {this.onMarkerClick}
+								name = {place.venue.name}
+								description = {place.venue.location.address}
+								position = {{ lat: place.venue.location.lat, lng: place.venue.location.lng }} />
 						)}
 						<InfoWindow
 							marker={this.state.activeMarker}
 							visible={this.state.showingInfoWindow}>
 								<div>
 									<h1>{this.state.selectedPlace.name}</h1>
-									<p>{this.state.selectedPlace.description}</p>
+									<p><b>Street:</b> {this.state.selectedPlace.description}</p>
 								</div>
 						</InfoWindow>
 					</Map>

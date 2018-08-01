@@ -1,38 +1,42 @@
 import React, { Component } from 'react';
+import escapeRegExp from 'escape-string-regexp';
 
 class Filter extends Component {
-		state = {
-			query: ''
-		}
+	state = {
+		query: ''
+	}
 
-		updateQuery = (query) => {
-			if(!query) {
-				this.setState({ query: '' })
-			} else {
-				console.log(query)
-				this.setState({ query: query })
-			}
-		}
+	updateQuery = (query) => {
+		this.setState({ query: query })
+	}
 
     render() {
-				const { places } = this.props;
-				const { query } = this.state;
+		const { query } = this.state;
 
-				return (
+		let showingPlaces;
+		if(!query) {
+			showingPlaces = this.props.places;
+		} else {
+			const match = new RegExp(escapeRegExp(query), 'i');
+			showingPlaces = this.props.places.filter((place) => match.test(place.venue.name))
+		}
+
+		return (
         <div id="selector">
-					Filter: <input 
-										type="text"
-										placeholder="Search for locations"
-										value={query}
-										onChange={(event) => this.updateQuery(event.target.value)}	
-									/>
-          <ol>
-          {places.map(place =>
-            <li key={place.referralId}>{place.venue.name}</li>
-          )}
-          </ol>
+			<h2>Cluj-Napoca popular places</h2>
+			Filter: <input 
+						type="text"
+						placeholder="Search for locations"
+						value={query}
+						onChange={(event) => this.updateQuery(event.target.value)}	
+					/>
+			<ol>
+			{showingPlaces.map(place =>
+			<li key={place.referralId}>{place.venue.name}</li>
+			)}
+			</ol>
         </div>
-        )}
+	)}
 }
 
 export default Filter
