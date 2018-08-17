@@ -10,6 +10,45 @@ class App extends Component {
 	state = {
 		places: [],
 		query: '',
+		showingInfoWindow: false,
+		activeMarker: {},
+		selectedPlace: {},
+	};
+
+	onMarkerClick = (props, marker, e) => {
+		console.log(props)
+		console.log(marker)
+		this.setState({
+			selectedPlace: props,
+			activeMarker: marker,
+			showingInfoWindow: true
+		});
+	}
+
+/* 	onListItemClick = (props) => {
+		const display = (e) => {
+			const markerInd = this.state.places.find(marker => marker.venue.name === e.target.innerText)
+			console.log(markerInd);
+		}
+		document.querySelector('.list-item').addEventListener('click', function (e) {
+			console.log(e.target.innerText);
+			display(e);
+			console.log(props);
+		})
+	} */
+
+	onListClick = (props, e) => {
+		console.log(props);
+		console.log(e);
+	}
+
+	onMapClicked = () => {
+		if (this.state.showingInfoWindow) {
+			this.setState({
+				showingInfoWindow: false,
+				activeMarker: null
+			})
+		}
 	};
 
 	updateQuery = (query) => {
@@ -20,6 +59,7 @@ class App extends Component {
 		LocationsAPI.get().then(places => {
 			this.setState({ places })
 		})
+		// .then(this.onListItemClick())
 	}
 
 	render() {
@@ -43,10 +83,21 @@ class App extends Component {
 						value={this.state.query}
 						onChange={(event) => this.updateQuery(event.target.value)}
 					/>
-					<Filter places={showPlaces} />
+					<Filter className="list-item" 
+						places={showPlaces} 
+						onListClick={this.onListClick}
+						//onMarkerClick={this.onListItemClick} 
+						//activeMarker={this.state.activeMarker}
+						//showingInfoWindow={this.state.showingInfoWindow}
+						//selectedPlace={this.state.selectedPlace}
+						/>
 				</div>
 				<Header />
-				<GoogleMap places={showPlaces} />
+				<GoogleMap places={showPlaces} 
+						onMarkerClick={this.onMarkerClick} 
+						activeMarker={this.state.activeMarker}
+						showingInfoWindow={this.state.showingInfoWindow}
+						selectedPlace={this.state.selectedPlace}/>
 			</div>
 		);
 	}

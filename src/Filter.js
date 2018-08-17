@@ -1,31 +1,23 @@
 import React, { Component } from 'react';
-//import escapeRegExp from 'escape-string-regexp';
+import ListItem from './ListItem';
 
 class Filter extends Component {
 	render() {
-		//const { query } = this.state;
-
-/* 		let showingPlaces;
-		if (!query) {
-			showingPlaces = this.props.places;
-		} else {
-			const match = new RegExp(escapeRegExp(query), 'i');
-			showingPlaces = this.props.places.filter((place) => match.test(place.venue.name))
-		} */
-
 		return (
 			<div id="filter">
-				{/* Filter: <input
-					type="text"
-					placeholder="Search for locations"
-					value={query}
-					onChange={(event) => this.updateQuery(event.target.value)}
-				/> */}
-				<ol>
+				<ul aria-label='locations list' className="list-item">
 					{this.props.places.map(place =>
-						<li key={place.referralId}>{place.venue.name}</li>
+						<ListItem key={place.referralId} 
+							referralId={place.referralId} 
+							venue={place.venue.name}
+							onListClick={this.props.onListClick}
+							//onClick={this.props.onMarkerClick}
+							name={place.venue.name}
+							description={place.venue.location.address}
+							position={{ lat: place.venue.location.lat, lng: place.venue.location.lng }}>
+						</ListItem>
 					)}
-				</ol>
+				</ul>
 			</div>
 		)
 	}
