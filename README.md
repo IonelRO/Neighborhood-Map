@@ -6,9 +6,8 @@ The final project of Udacity Front-End Nanodegree that is displaying top locatio
 ## Table of Contents
 
 - [How to Run](#how-to-run)
-- [Sending Feedback](#sending-feedback)
-- [Folder Structure](#folder-structure)
-- [Available Scripts](#available-scripts)
+- [Run with Service Worker](#run-with-service-worker)
+- [Dependencies](#dependencies)
 
 ## How to Run
 * Download node
