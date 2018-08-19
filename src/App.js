@@ -15,9 +15,9 @@ class App extends Component {
 		selectedPlace: {},
 	};
 
+	// Handle marker click menu click	
 	onMarkerClick = (props, marker, e) => {
-		console.log(props)
-		console.log(marker)
+
 		this.setState({
 			selectedPlace: props,
 			activeMarker: marker,
@@ -25,23 +25,40 @@ class App extends Component {
 		});
 	}
 
-/* 	onListItemClick = (props) => {
-		const display = (e) => {
-			const markerInd = this.state.places.find(marker => marker.venue.name === e.target.innerText)
-			console.log(markerInd);
-		}
-		document.querySelector('.list-item').addEventListener('click', function (e) {
-			console.log(e.target.innerText);
-			display(e);
-			console.log(props);
-		})
-	} */
+	// Handle hamburger menu click/enter key
+	onHamburgerClick = (e) => {
+		if (e.key === 'Enter' || !e.key) {
+			const menu = document.querySelector('.hamburger');
 
-	onListClick = (props, e) => {
-		console.log(props);
-		console.log(e);
+			if (menu.getAttribute('aria-expanded') === 'true') {
+				menu.setAttribute('aria-expanded', 'false');
+				menu.setAttribute('aria-hidden', 'false');
+			} else {
+				menu.setAttribute('aria-expanded', 'true');
+				menu.setAttribute('aria-hidden', 'true');
+			}
+			
+			document.querySelector('.App-header').classList.toggle('full-width');
+			document.querySelector('#map').classList.toggle('full-width');
+			document.querySelector('#filter').classList.toggle('hidden');
+		}
 	}
 
+	// Handle list item click/enter key
+	onListClick = (props, e) => {
+		if (e.key === 'Enter' || !e.key) {
+			let clickedMarker;
+			if (document.querySelectorAll('.gmnoprint map area').length !== 0) {
+				clickedMarker = [...document.querySelectorAll('.gmnoprint map area')];
+			} else {
+				clickedMarker = [...document.querySelectorAll('.gmnoprint')];
+			}
+			clickedMarker = clickedMarker.find(marker => marker.getAttribute('title') === props.venue);
+			clickedMarker.click();
+		}
+	}
+
+	// Handle map click
 	onMapClicked = () => {
 		if (this.state.showingInfoWindow) {
 			this.setState({
@@ -49,21 +66,51 @@ class App extends Component {
 				activeMarker: null
 			})
 		}
-	};
+	}
 
+	// Update searching query
 	updateQuery = (query) => {
 		this.setState({ query: query })
 	}
 
+	// Handle errors from map
+	handleMapErrors = () => {
+		setTimeout(function () {
+			if (document.querySelector('.gm-err-container')) {
+				const errorContainer = document.querySelector('.gm-err-container');
+				const message = document.querySelector('.gm-err-message').innerText;
+				errorContainer.innerHTML = `
+					<div class = "error-container">
+						<h3>Something went wrong while trying to load the map!</h2>
+						<div class = "error-message">${message}</div>
+					</div>
+				`;
+			}
+		}, 1300);
+	}
+
+	// Handle errors from FourSquareAPI
+	handleFourSquareErrors = (error) => {
+		const errorContainer = document.querySelector('.list');
+		errorContainer.innerHTML = `
+					<div class = "error-container">
+						<h3>Something went wrong while trying to get places!</h2>
+						<div class = "error-message">${error}</div>
+					</div>
+				`;
+	}
+
+	// Get data from FourSquareAPI and call error handlers
 	componentDidMount() {
 		LocationsAPI.get().then(places => {
 			this.setState({ places })
 		})
-		// .then(this.onListItemClick())
+			.catch(error => this.handleFourSquareErrors(error))
+			.then(this.handleMapErrors())
 	}
 
 	render() {
-		
+
 		let showPlaces;
 		if (!this.state.query) {
 			showPlaces = this.state.places;
@@ -75,29 +122,22 @@ class App extends Component {
 
 		return (
 			<div className="App">
-				<div id="selector">
-				<h2>Cluj-Napoca popular places</h2>
-					Filter: <input
-						type="text"
-						placeholder="Search for locations"
-						value={this.state.query}
-						onChange={(event) => this.updateQuery(event.target.value)}
-					/>
-					<Filter className="list-item" 
-						places={showPlaces} 
-						onListClick={this.onListClick}
-						//onMarkerClick={this.onListItemClick} 
-						//activeMarker={this.state.activeMarker}
-						//showingInfoWindow={this.state.showingInfoWindow}
-						//selectedPlace={this.state.selectedPlace}
-						/>
-				</div>
-				<Header />
-				<GoogleMap places={showPlaces} 
-						onMarkerClick={this.onMarkerClick} 
-						activeMarker={this.state.activeMarker}
-						showingInfoWindow={this.state.showingInfoWindow}
-						selectedPlace={this.state.selectedPlace}/>
+				<Filter className="list-item"
+					query={this.state.query}
+					updateQuery={this.updateQuery}
+					places={showPlaces}
+					onListClick={this.onListClick}
+				/>
+				<Header
+					onHamburgerClick={this.onHamburgerClick}
+				/>
+				<GoogleMap
+					places={showPlaces}
+					onMarkerClick={this.onMarkerClick}
+					activeMarker={this.state.activeMarker}
+					showingInfoWindow={this.state.showingInfoWindow}
+					selectedPlace={this.state.selectedPlace}
+				/>
 			</div>
 		);
 	}

@@ -4,21 +4,27 @@ import ListItem from './ListItem';
 class Filter extends Component {
 	render() {
 		return (
-			<div id="filter">
-				<ul aria-label='locations list' className="list-item">
+			<nav id="filter">
+				<h2>Cluj-Napoca places</h2>
+				Filter: <input
+					tabIndex={3}
+					role='searchbox'
+					type="text"
+					placeholder="Search for locations"
+					value={this.props.query}
+					onChange={(event) => this.props.updateQuery(event.target.value)}
+				/>
+				<ul aria-label='locations list' className="list">
 					{this.props.places.map(place =>
-						<ListItem key={place.referralId} 
-							referralId={place.referralId} 
+						<ListItem key={place.referralId}
+							referralId={place.referralId}
 							venue={place.venue.name}
 							onListClick={this.props.onListClick}
-							//onClick={this.props.onMarkerClick}
-							name={place.venue.name}
-							description={place.venue.location.address}
-							position={{ lat: place.venue.location.lat, lng: place.venue.location.lng }}>
+						>
 						</ListItem>
 					)}
 				</ul>
-			</div>
+			</nav>
 		)
 	}
 }

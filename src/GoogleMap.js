@@ -1,28 +1,36 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { MAP_KEY } from './keys/Keys';
 
 class GoogleMap extends Component {
-
 	render() {
+		const { google, places, onMarkerClick, activeMarker, showingInfoWindow, selectedPlace} = this.props;
+
 		return (
 			<div role="application" id="map">
-				<Map google={this.props.google}
+				<Map google={google}
 					initialCenter={{ lat: 46.770439, lng: 23.591423 }}
 					zoom={15}
 					onClick={this.onMapClicked}>
-					{this.props.places.map(place =>
-						<Marker key={place.referralId} 
-							onClick={this.props.onMarkerClick}
+					{places.map(place =>
+						<Marker
+							key={place.referralId}
+							id={place.referralId}
 							name={place.venue.name}
+							title={place.venue.name}
 							description={place.venue.location.address}
-							position={{ lat: place.venue.location.lat, lng: place.venue.location.lng }} />
+							onClick={onMarkerClick}
+							position={{ lat: place.venue.location.lat, lng: place.venue.location.lng }}
+							animation={Object.keys(activeMarker).length ?
+								(place.referralId === activeMarker.id ? '1' : '0') : '0'}
+						/>
 					)}
 					<InfoWindow
-						marker={this.props.activeMarker}
-						visible={this.props.showingInfoWindow}>
+						marker={activeMarker}
+						visible={showingInfoWindow}>
 						<div>
-							<h1>{this.props.selectedPlace.name}</h1>
-							<p><b>Street:</b> {this.props.selectedPlace.description}</p>
+							<h1 tabIndex={'0'}>{selectedPlace.name}</h1>
+							<p tabIndex={'0'}><b>Street:</b> {selectedPlace.description}</p>
 						</div>
 					</InfoWindow>
 				</Map>
@@ -32,5 +40,5 @@ class GoogleMap extends Component {
 }
 
 export default GoogleApiWrapper({
-	apiKey: ('AIzaSyB1OLauMwO5CCMQg0gZejZjm0q1lAEQFSo')
+	apiKey: (MAP_KEY)
 })(GoogleMap)

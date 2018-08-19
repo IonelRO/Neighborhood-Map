@@ -7,7 +7,11 @@ class Header extends Component {
     render() {
         return (
             <header className="App-header">
-                <FontAwesome 
+                <FontAwesome
+                    aria-expanded="true"
+                    tabIndex={1}
+                    onKeyPress={(e) => { this.props.onHamburgerClick(e) }}
+                    onClick={(e) => { this.props.onHamburgerClick(e) }}
                     className="fas fa-bars hamburger"
                     name="hamburger"
                     size='2x'
