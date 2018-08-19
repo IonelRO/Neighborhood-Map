@@ -1,7 +1,7 @@
 # Neighborhood Map
 The final project of Udacity Front-End Nanodegree that is displaying top locations from Cluj-Napoca, Romania.
 
-<div style="text-align:center"><img src ="https://preview.ibb.co/fp00Fz/PROJECT.png" alt="Project Printscreen"/></div>
+![Project Printscreen](https://preview.ibb.co/fp00Fz/PROJECT.png "Project Printscreen")
 
 ## Table of Contents
 
