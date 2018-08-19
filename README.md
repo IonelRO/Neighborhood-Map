@@ -1,7 +1,7 @@
 # Neighborhood Map
 The final project of Udacity Front-End Nanodegree that is displaying top locations from Cluj-Napoca, Romania.
 
-![project image](http://prntscr.com/kke079)
+![project image](https://preview.ibb.co/fp00Fz/PROJECT.png "Logo Title Text 1")
 
 ## Table of Contents
 
@@ -25,8 +25,8 @@ The final project of Udacity Front-End Nanodegree that is displaying top locatio
 * open `http://localhost:5000`
 
 ## Dependencies
-* Using React framework (https://reactjs.org/)
-* [Bootstrapped with Create React App] (https://github.com/facebook/create-react-app)
-* [Maps JavaScript API] (https://developers.google.com/maps/documentation/javascript/tutorial)
-* [Rendered map with google-maps-react] (https://github.com/fullstackreact/google-maps-react)
-* [Foursquare API for top locations] (https://foursquare.com/)
+* [Using React framework](https://reactjs.org/)
+* [Bootstrapped with Create React App](https://github.com/facebook/create-react-app)
+* [Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial)
+* [Rendered map with google-maps-react](https://github.com/fullstackreact/google-maps-react)
+* [Foursquare API for top locations](https://foursquare.com/)
