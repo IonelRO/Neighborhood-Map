@@ -10,7 +10,7 @@ The final project of Udacity Front-End Nanodegree that is displaying top locatio
 - [Dependencies](#dependencies)
 
 ## How to Run
-* Download node
+* [Download node](https://nodejs.org/en/download/)
 * `git clone https://github.com/Schular/Neighborhood-Map`
 * `cd Neighborhood-Map`
 * `npm install`
