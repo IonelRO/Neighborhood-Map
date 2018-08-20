@@ -37,7 +37,7 @@ class App extends Component {
 				menu.setAttribute('aria-expanded', 'true');
 				menu.setAttribute('aria-hidden', 'true');
 			}
-			
+
 			document.querySelector('.App-header').classList.toggle('full-width');
 			document.querySelector('.map-container').classList.toggle('full-width');
 			document.querySelector('#filter').classList.toggle('hidden');
@@ -72,11 +72,19 @@ class App extends Component {
 	updateQuery = (query) => {
 		this.setState({ query: query })
 	}
-	
+
 	// Handle errors from map
 	handleMapErrors = () => {
+
+		window.gm_authFailure = function () {
+			document.querySelector('.map-container').innerHTML = `
+				<div class = "error-container">
+						<h3>Ooops... Something went wrong while trying to load the map!</h2>
+				</div>
+				`;
+		}
+
 		setTimeout(function () {
-				
 			if (document.querySelector('.gm-err-container')) {
 				const errorContainer = document.querySelector('.gm-err-container');
 				const message = document.querySelector('.gm-err-message').innerText;
@@ -95,7 +103,7 @@ class App extends Component {
 				</div>
 				`;
 			}
-		}, 1300);
+		}, 1500);
 	}
 
 	// Handle errors from FourSquareAPI
@@ -140,14 +148,14 @@ class App extends Component {
 				<Header
 					onHamburgerClick={this.onHamburgerClick}
 				/>
-				<div class = "map-container">
-				<GoogleMap
-					places={showPlaces}
-					onMarkerClick={this.onMarkerClick}
-					activeMarker={this.state.activeMarker}
-					showingInfoWindow={this.state.showingInfoWindow}
-					selectedPlace={this.state.selectedPlace}
-				/>
+				<div className="map-container">
+					<GoogleMap
+						places={showPlaces}
+						onMarkerClick={this.onMarkerClick}
+						activeMarker={this.state.activeMarker}
+						showingInfoWindow={this.state.showingInfoWindow}
+						selectedPlace={this.state.selectedPlace}
+					/>
 				</div>
 			</div>
 		);
