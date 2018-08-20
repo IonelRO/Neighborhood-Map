@@ -4,11 +4,20 @@
 	font-family: 'Hind', sans-serif;
 }
 
-#map {
+.map-container {
 	position: relative;
 	width: calc(100% - 250px);
 	height: calc(100vh - 60px);
 	float: right;
+}
+
+#map {
+	width: 100%;
+}
+
+.hamburger {
+	font-size: 30px;
+	padding: 0 15px;
 }
 
 .error-container {
@@ -131,7 +140,7 @@ input[type=text] {
 		width: calc(100% - 160px);
 	}
 
-	#map {
+	.map-container {
 		width: calc(100% - 160px);
 	}
 

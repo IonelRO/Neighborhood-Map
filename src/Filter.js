@@ -9,6 +9,7 @@ class Filter extends Component {
 				Filter: <input
 					tabIndex={3}
 					role='searchbox'
+					aria-label='search locations'
 					type="text"
 					placeholder="Search for locations"
 					value={this.props.query}

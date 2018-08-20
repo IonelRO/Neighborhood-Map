@@ -39,7 +39,7 @@ class App extends Component {
 			}
 			
 			document.querySelector('.App-header').classList.toggle('full-width');
-			document.querySelector('#map').classList.toggle('full-width');
+			document.querySelector('.map-container').classList.toggle('full-width');
 			document.querySelector('#filter').classList.toggle('hidden');
 		}
 	}
@@ -72,10 +72,11 @@ class App extends Component {
 	updateQuery = (query) => {
 		this.setState({ query: query })
 	}
-
+	
 	// Handle errors from map
 	handleMapErrors = () => {
 		setTimeout(function () {
+				
 			if (document.querySelector('.gm-err-container')) {
 				const errorContainer = document.querySelector('.gm-err-container');
 				const message = document.querySelector('.gm-err-message').innerText;
@@ -84,6 +85,14 @@ class App extends Component {
 						<h3>Something went wrong while trying to load the map!</h2>
 						<div class = "error-message">${message}</div>
 					</div>
+				`;
+			}
+
+			if (!document.querySelector('#map')) {
+				document.querySelector('.map-container').innerHTML = `
+				<div class = "error-container">
+						<h3>Something went wrong while trying to load the map!</h2>
+				</div>
 				`;
 			}
 		}, 1300);
@@ -131,6 +140,7 @@ class App extends Component {
 				<Header
 					onHamburgerClick={this.onHamburgerClick}
 				/>
+				<div class = "map-container">
 				<GoogleMap
 					places={showPlaces}
 					onMarkerClick={this.onMarkerClick}
@@ -138,6 +148,7 @@ class App extends Component {
 					showingInfoWindow={this.state.showingInfoWindow}
 					selectedPlace={this.state.selectedPlace}
 				/>
+				</div>
 			</div>
 		);
 	}

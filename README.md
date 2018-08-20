@@ -1,16 +1,17 @@
 # Neighborhood Map
 The final project of Udacity Front-End Nanodegree that is displaying top locations from Cluj-Napoca, Romania.
 
-![Project Printscreen](https://preview.ibb.co/fp00Fz/PROJECT.png "Project Printscreen")
+![project image](http://prntscr.com/kke079)
 
 ## Table of Contents
 
 - [How to Run](#how-to-run)
-- [Run with Service Worker](#run-with-service-worker)
-- [Dependencies](#dependencies)
+- [Sending Feedback](#sending-feedback)
+- [Folder Structure](#folder-structure)
+- [Available Scripts](#available-scripts)
 
 ## How to Run
-* [Download node](https://nodejs.org/en/download/)
+* Download node
 * `git clone https://github.com/Schular/Neighborhood-Map`
 * `cd Neighborhood-Map`
 * `npm install`
@@ -24,8 +25,8 @@ The final project of Udacity Front-End Nanodegree that is displaying top locatio
 * open `http://localhost:5000`
 
 ## Dependencies
-* [Using React framework](https://reactjs.org/)
-* [Bootstrapped with Create React App](https://github.com/facebook/create-react-app)
-* [Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial)
-* [Rendered map with google-maps-react](https://github.com/fullstackreact/google-maps-react)
-* [Foursquare API for top locations](https://foursquare.com/)
+* Using React framework (https://reactjs.org/)
+* [Bootstrapped with Create React App] (https://github.com/facebook/create-react-app)
+* [Maps JavaScript API] (https://developers.google.com/maps/documentation/javascript/tutorial)
+* [Rendered map with google-maps-react] (https://github.com/fullstackreact/google-maps-react)
+* [Foursquare API for top locations] (https://foursquare.com/)
